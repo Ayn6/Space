@@ -20,7 +20,7 @@ public class BlackHole : MonoBehaviour
         if (linkedBlackHole == null) return;
 
         // Телепортируем объект
-        Vector3 offset = new Vector3(2, 0, 0);
+        Vector3 offset = new Vector3(10, 10, 10);
         obj.transform.position = linkedBlackHole.position + offset;
 
     }
