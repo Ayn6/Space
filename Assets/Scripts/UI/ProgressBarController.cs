@@ -3,38 +3,39 @@ using UnityEngine.UI;
 
 public class ProgressBarController : MonoBehaviour
 {
-    public Slider timeProgressBar; // Ссылка на UI-элемент Slider
-    public Slider movementProgressBar; // Ссылка на UI-элемент Slider
-    public float totalTime = Player.OXYGEN; // Общее время для прогресса
-    private float remainingTime; // Оставшееся время
 
-    public float movementTotal = 100f; // Максимальное значение шкалы движения
+    public Slider timeProgressBar; // Г‘Г±Г»Г«ГЄГ  Г­Г  UI-ГЅГ«ГҐГ¬ГҐГ­ГІ Slider
+    public Slider movementProgressBar; // Г‘Г±Г»Г«ГЄГ  Г­Г  UI-ГЅГ«ГҐГ¬ГҐГ­ГІ Slider
+    public float totalTime = Player.OXYGEN; // ГЋГЎГ№ГҐГҐ ГўГ°ГҐГ¬Гї Г¤Г«Гї ГЇГ°Г®ГЈГ°ГҐГ±Г±Г 
+    private float remainingTime; // ГЋГ±ГІГ ГўГёГҐГҐГ±Гї ГўГ°ГҐГ¬Гї
+
+    public float movementTotal = 100f; // ГЊГ ГЄГ±ГЁГ¬Г Г«ГјГ­Г®ГҐ Г§Г­Г Г·ГҐГ­ГЁГҐ ГёГЄГ Г«Г» Г¤ГўГЁГ¦ГҐГ­ГЁГї
     private float remainingMovement;
 
-    public Transform player; // Ссылка на объект игрока
-    private Vector3 lastPosition; // Последняя позиция игрока
-    public float movementCost = 0.5f; // Стоимость движения (уменьшение шкалы)
+    public Transform player; // Г‘Г±Г»Г«ГЄГ  Г­Г  Г®ГЎГєГҐГЄГІ ГЁГЈГ°Г®ГЄГ 
+    private Vector3 lastPosition; // ГЏГ®Г±Г«ГҐГ¤Г­ГїГї ГЇГ®Г§ГЁГ¶ГЁГї ГЁГЈГ°Г®ГЄГ 
+    public float movementCost = 0.5f; // Г‘ГІГ®ГЁГ¬Г®Г±ГІГј Г¤ГўГЁГ¦ГҐГ­ГЁГї (ГіГ¬ГҐГ­ГјГёГҐГ­ГЁГҐ ГёГЄГ Г«Г»)
 
 
     void Start()
     {
-        // Инициализация шкалы времени
+        // Г€Г­ГЁГ¶ГЁГ Г«ГЁГ§Г Г¶ГЁГї ГёГЄГ Г«Г» ГўГ°ГҐГ¬ГҐГ­ГЁ
         remainingTime = totalTime;
         timeProgressBar.maxValue = totalTime;
         timeProgressBar.value = totalTime;
 
-        // Инициализация шкалы движения
+        // Г€Г­ГЁГ¶ГЁГ Г«ГЁГ§Г Г¶ГЁГї ГёГЄГ Г«Г» Г¤ГўГЁГ¦ГҐГ­ГЁГї
         remainingMovement = movementTotal;
         movementProgressBar.maxValue = movementTotal;
         movementProgressBar.value = movementTotal;
 
-        // Сохраняем стартовую позицию игрока
+        // Г‘Г®ГµГ°Г Г­ГїГҐГ¬ Г±ГІГ Г°ГІГ®ГўГіГѕ ГЇГ®Г§ГЁГ¶ГЁГѕ ГЁГЈГ°Г®ГЄГ 
         lastPosition = player.position;
     }
 
     void Update()
     {
-        // Обновление шкалы времени
+        // ГЋГЎГ­Г®ГўГ«ГҐГ­ГЁГҐ ГёГЄГ Г«Г» ГўГ°ГҐГ¬ГҐГ­ГЁ
         if (remainingTime > 0)
         {
             remainingTime -= Time.deltaTime;
@@ -45,7 +46,7 @@ public class ProgressBarController : MonoBehaviour
             OnTimeEnd();
         }
 
-        // Обновление шкалы движения
+        // ГЋГЎГ­Г®ГўГ«ГҐГ­ГЁГҐ ГёГЄГ Г«Г» Г¤ГўГЁГ¦ГҐГ­ГЁГї
         if (remainingMovement > 0 && HasPlayerMoved())
         {
             remainingMovement -= movementCost * Time.deltaTime;
@@ -59,35 +60,35 @@ public class ProgressBarController : MonoBehaviour
 
     private bool HasPlayerMoved()
     {
-        // Проверяем изменение позиции игрока
+        // ГЏГ°Г®ГўГҐГ°ГїГҐГ¬ ГЁГ§Г¬ГҐГ­ГҐГ­ГЁГҐ ГЇГ®Г§ГЁГ¶ГЁГЁ ГЁГЈГ°Г®ГЄГ 
         if (player.position != lastPosition)
         {
             lastPosition = player.position;
-            return true; // Игрок двигался
+            return true; // Г€ГЈГ°Г®ГЄ Г¤ГўГЁГЈГ Г«Г±Гї
         }
 
-        return false; // Игрок стоял на месте
+        return false; // Г€ГЈГ°Г®ГЄ Г±ГІГ®ГїГ« Г­Г  Г¬ГҐГ±ГІГҐ
     }
 
     void OnMovementEnd()
     {
-        Debug.Log("Шкала движения закончилась!");
+        Debug.Log("ГГЄГ Г«Г  Г¤ГўГЁГ¦ГҐГ­ГЁГї Г§Г ГЄГ®Г­Г·ГЁГ«Г Г±Гј!");
         Time.timeScale = 0;
-        // Добавьте нужные действия, например, вывод сообщения
+        // Г„Г®ГЎГ ГўГјГІГҐ Г­ГіГ¦Г­Г»ГҐ Г¤ГҐГ©Г±ГІГўГЁГї, Г­Г ГЇГ°ГЁГ¬ГҐГ°, ГўГ»ГўГ®Г¤ Г±Г®Г®ГЎГ№ГҐГ­ГЁГї
     }
 
     void OnTimeEnd()
     {
-        Debug.Log("Время закончилось!");
+        Debug.Log("Г‚Г°ГҐГ¬Гї Г§Г ГЄГ®Г­Г·ГЁГ«Г®Г±Гј!");
         Time.timeScale = 0;
     }
 
     public void RefillMovementBar()
     {       
-        remainingTime = movementTotal; // Заполняем шкалу движения
-        movementProgressBar.value = movementTotal; // Обновляем значение шкалы
+        remainingTime = movementTotal; // Г‡Г ГЇГ®Г«Г­ГїГҐГ¬ ГёГЄГ Г«Гі Г¤ГўГЁГ¦ГҐГ­ГЁГї
+        movementProgressBar.value = movementTotal; // ГЋГЎГ­Г®ГўГ«ГїГҐГ¬ Г§Г­Г Г·ГҐГ­ГЁГҐ ГёГЄГ Г«Г»
 
-        remainingMovement = totalTime; // Заполняем шкалу движения
-        timeProgressBar.value = totalTime; // Обновляем значение шкалы
+        remainingMovement = totalTime; // Г‡Г ГЇГ®Г«Г­ГїГҐГ¬ ГёГЄГ Г«Гі Г¤ГўГЁГ¦ГҐГ­ГЁГї
+        timeProgressBar.value = totalTime; // ГЋГЎГ­Г®ГўГ«ГїГҐГ¬ Г§Г­Г Г·ГҐГ­ГЁГҐ ГёГЄГ Г«Г»
     }
 }
